@@ -19,7 +19,7 @@ from dash import no_update
 # Create a dash application
 app = dash.Dash(__name__)
 
-# REVIEW1: Clear the layout and do not display exception till callback gets executed
+#Clear the layout and do not display exception till callback gets executed
 app.config.suppress_callback_exceptions = True
 
 # Read the airline data into pandas dataframe
@@ -79,11 +79,11 @@ def compute_data_choice_2(df):
 
 # Application layout
 app.layout = html.Div(children=[ 
-                                # TASK1: Add title to the dashboard
-                                # Enter your code below. Make sure you have correct formatting.
+                                #Add title to the dashboard
+                                
                                 html.Div([html.H1('US Domestic Airline Flights Performance', style = {'textAlign':'center','color':'#503D36','font-size':'24'})]),
-                                # REVIEW2: Dropdown creation
-                                # Create an outer division 
+                                #Dropdown creation
+                               
                                 html.Div([
                                     # Add an division
                                     html.Div([
@@ -93,8 +93,8 @@ app.layout = html.Div(children=[
                                             html.H2('Report Type:', style={'margin-right': '2em'}),
                                             ]
                                         ),
-                                        # TASK2: Add a dropdown
-                                        # Enter your code below. Make sure you have correct formatting.
+                                        #Add a dropdown
+                                        
                                         dcc.Dropdown(id='input-type',
                                                      options=[
                                                               {'label': 'Yearly Airline Performance Report', 'value': 'OPT1'},
@@ -124,7 +124,7 @@ app.layout = html.Div(children=[
                                           ]),
                                 
                                 # Add Computed graphs
-                                # REVIEW3: Observe how we add an empty division and providing an id that will be updated during callback
+                                #Add an empty division and providing an id that will be updated during callback
                                 html.Div([ ], id='plot1'),
     
                                 html.Div([
@@ -132,8 +132,8 @@ app.layout = html.Div(children=[
                                         html.Div([ ], id='plot3')
                                 ], style={'display': 'flex'}),
                                 
-                                # TASK3: Add a division with two empty divisions inside. See above disvision for example.
-                                # Enter your code below. Make sure you have correct formatting.
+                                #Add a division with two empty divisions inside. See above disvision for example.
+                               
                                 html.Div([
                                           html.Div([ ], id='plot4'),
                                           html.Div([ ], id='plot5')
@@ -142,8 +142,8 @@ app.layout = html.Div(children=[
                                 ])
 
 # Callback function definition
-# TASK4: Add 5 ouput components
-# Enter your code below. Make sure you have correct formatting.
+# Add 5 ouput components
+
 @app.callback( [Output(component_id='plot1', component_property='children'),
                 Output(component_id='plot2', component_property='children'),
                 Output(component_id='plot3', component_property='children'),
@@ -176,7 +176,7 @@ def get_graph(chart, year, children1, children2, c3, c4, c5):
             # Percentage of diverted airport landings per reporting airline
             pie_fig = px.pie(div_data, values='Flights', names='Reporting_Airline', title='% of flights by reporting airline')
             
-            # REVIEW5: Number of flights flying from each state using choropleth
+            #Number of flights flying from each state using choropleth
             map_fig = px.choropleth(map_data,  # Input data
                     locations='OriginState', 
                     color='Flights',  
@@ -188,8 +188,8 @@ def get_graph(chart, year, children1, children2, c3, c4, c5):
                     title_text = 'Number of flights from origin state', 
                     geo_scope='usa') # Plot only the USA instead of globe
             
-            # TASK6: Number of flights flying to each state from each reporting airline
-            # Enter your code below. Make sure you have correct formatting.
+            #Number of flights flying to each state from each reporting airline
+            
             tree_fig = px.treemap(tree_data, path=['DestState', 'Reporting_Airline'], 
                       values='Flights',
                       color='Flights',
@@ -198,7 +198,7 @@ def get_graph(chart, year, children1, children2, c3, c4, c5):
                 )
             
             
-            # REVIEW6: Return dcc.Graph component to the empty division
+            #Return dcc.Graph component to the empty division
             return [dcc.Graph(figure=tree_fig), 
                     dcc.Graph(figure=pie_fig),
                     dcc.Graph(figure=map_fig),
@@ -206,7 +206,7 @@ def get_graph(chart, year, children1, children2, c3, c4, c5):
                     dcc.Graph(figure=line_fig)
                    ]
         else:
-            # REVIEW7: This covers chart type 2 and we have completed this exercise under Flight Delay Time Statistics Dashboard section
+            
             # Compute required information for creating graph from the data
             avg_car, avg_weather, avg_NAS, avg_sec, avg_late = compute_data_choice_2(df)
             
